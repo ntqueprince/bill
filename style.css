@@ -1,0 +1,77 @@
+:root{--ink:#172033;--muted:#667085;--accent:#244b8f;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:#f2f5fa;color:var(--ink);font-family:Inter,Arial,sans-serif}
+.app-shell{display:grid;grid-template-columns:minmax(300px,380px) 1fr;min-height:100vh}
+.panel{background:#fff;padding:26px 24px;box-shadow:1px 0 16px #17203312;z-index:2;overflow:auto}
+.panel-title h1{font-size:23px;margin:3px 0 7px}
+.panel-title p{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.eyebrow{color:var(--accent)!important;font-size:10px!important;font-weight:800;letter-spacing:.11em}
+.form-section{border-top:1px solid #e9ecf1;margin-top:20px;padding-top:16px}
+.form-section h2{font-size:13px;margin:0 0 12px}
+.fields{display:grid;gap:10px}
+.fields.two{grid-template-columns:1fr 1fr}
+.fields label,.upload-label{color:#344054;display:grid;font-size:11px;font-weight:700;gap:5px}
+.upload-label span{color:var(--muted);font-weight:500}
+input{width:100%;min-width:0;border:1px solid #d5dae2;border-radius:7px;padding:9px 10px;font:13px Inter,Arial,sans-serif;color:var(--ink);outline:none;background:#fff}
+input:focus{border-color:#4674c6;box-shadow:0 0 0 3px #4674c622}
+.upload-hint{font-size:10px;color:var(--muted);line-height:1.4;margin-top:5px}
+.actions{display:grid;gap:9px;margin-top:22px}
+.sample-fill{width:100%;margin-top:16px;background:#e8eef9;color:#244b8f;border:1px solid #b7c8e8}
+.sample-hint{font-size:10px;line-height:1.4;color:var(--muted);margin:7px 0 -3px}
+button{border:0;border-radius:8px;padding:12px 14px;background:var(--accent);color:#fff;font:700 13px Inter,Arial,sans-serif;cursor:pointer}
+.secondary{background:#edf1f7;color:#344054}
+.preview-pane{min-width:0;padding:26px;overflow:auto}
+.preview-label{color:#667085;font-size:10px;font-weight:800;letter-spacing:.12em;margin:0 auto 10px;width:min(794px,100%)}
+
+/* ===== Document: matches original PDF page 864x1296 pt (ratio 2:3) ===== */
+/* 794px wide -> 794*1296/864 = 1191px tall, so capture fills the PDF page exactly */
+.document{background:var(--paper);width:794px;min-height:1191px;margin:auto;padding:22px 20px;position:relative;box-shadow:0 10px 28px #17203318;font-family:"Times New Roman","Noto Sans Devanagari",Times,serif}
+.top-row{display:grid;grid-template-columns:250px minmax(0,1fr) 205px;gap:10px;align-items:start}
+.id-table{width:100%;margin-top:34px;font-size:11.5px;border-collapse:collapse}
+.id-table td,.transport-table th,.transport-table td,.goods-table th,.goods-table td{border:1px solid #8c939c}
+.id-table td{padding:5px 6px;vertical-align:top;overflow-wrap:normal;word-break:normal}
+.id-table td:first-child{width:48%}
+.gov-header{text-align:center;min-width:0}
+.logo-frame{height:64px;display:flex;justify-content:center;align-items:center}
+.logo-frame img{display:none;max-width:88px;max-height:60px;object-fit:contain}
+.gov-line1{font-size:11px}
+.gov-line2{font-size:12px;margin-top:2px}
+.gov-line3{font-size:14px;font-weight:bold;line-height:1.15;margin-top:3px;white-space:nowrap}
+.gov-line4{font-size:11px;font-weight:bold;margin-top:2px}
+.supplier-block{text-align:right;padding-top:18px;min-width:0}
+.sup-name{font-size:18px;font-weight:bold;overflow-wrap:anywhere;font-family:"Noto Sans Devanagari","Times New Roman",serif}
+.sup-place,.sup-pan,.sup-vcts{font-size:10.5px;line-height:1.3;margin-top:3px;overflow-wrap:normal;word-break:normal}
+.sup-place{font-weight:bold}
+.sup-pan{font-size:12px;font-weight:bold;margin-top:5px}
+.transport-table{width:46%;margin-top:20px;font-size:11px;table-layout:fixed;border-collapse:collapse}
+.transport-table th,.transport-table td{padding:5px;text-align:left;vertical-align:top;overflow-wrap:normal;word-break:normal}
+.transport-table th{font-weight:bold;line-height:1.2}
+.transport-table td{height:52px}
+.goods-table{width:100%;table-layout:fixed;margin-top:26px;font-size:9.4px;border-collapse:collapse}
+.goods-table .sn{width:28px}
+.goods-table .amount{width:50px}
+.goods-table .destination-col{width:62px}
+.goods-table .remarks-col{width:56px}
+.goods-table th,.goods-table td{padding:4px 2px;text-align:center;vertical-align:top;line-height:1.18;overflow-wrap:normal;word-break:normal;hyphens:none}
+.goods-table th{vertical-align:middle;font-weight:bold}
+.goods-table .destination-heading{font-size:9px;white-space:nowrap}
+.goods-table td{height:60px}
+/* QR below the goods table, left aligned — same position/size ratio as original PDF */
+.qr{display:block;margin:30px 0 0 2px;width:120px;height:120px;object-fit:contain}
+footer{position:absolute;bottom:36px;right:20px;color:#687282;font:9px Arial,sans-serif}
+
+.mobile-bar{display:none}
+@media(max-width:900px){.app-shell{grid-template-columns:1fr}.panel{padding:20px;box-shadow:none}.preview-pane{padding:20px 12px}.document{transform-origin:top left}.preview-label{padding-left:4px}}
+@media(max-width:540px){.mobile-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:#172033;color:#fff;font-size:13px;font-weight:700}.mobile-print{width:auto;padding:7px 11px;background:#fff;color:#172033;border-radius:6px;font-size:11px}.panel{padding:18px 16px}.fields.two{grid-template-columns:1fr}.preview-pane{padding:18px 0;overflow:hidden}.preview-label{padding:0 16px}.document{margin-left:12px;transform:scale(.45);margin-bottom:-655px}.panel-title h1{font-size:21px}}
+
+/* Print: same page size as original PDF (864 x 1296 pt) */
+@media print{
+  @page{size:864pt 1296pt;margin:0}
+  body{background:#fff}
+  .mobile-bar,.panel,.preview-label{display:none!important}
+  .app-shell{display:block}
+  .preview-pane{padding:0;overflow:visible}
+  .document{width:864pt;min-height:1296pt;box-shadow:none;margin:0;padding:24pt 22pt;transform:none!important}
+  .qr{width:130pt;height:130pt;margin-top:32pt}
+  footer{bottom:10pt;right:22pt}
+}

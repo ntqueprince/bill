@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Consignment Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="mobile-bar"><span>Demo Consignment</span><button type="button" class="mobile-print"
+      id="mobilePrint">Download PDF</button></header>
+  <div class="app-shell">
+    <aside class="panel" aria-label="Document details">
+      <div class="panel-title">
+        <p class="eyebrow">DOCUMENT BUILDER</p>
+        <h1>Consignment details</h1>
+        <p>Complete the fields, then save a print-ready PDF.</p>
+      </div>
+      <form id="documentForm" autocomplete="off">
+        <button type="button" id="autoFillButton" class="sample-fill">Auto fill sample bill</button>
+        <p class="sample-hint">Fills the form with the details from the supplied bill. You can edit any field afterwards.</p>
+        <section class="form-section">
+          <h2>Branding</h2><label class="upload-label" for="logoUpload">Upload shop logo
+            <span>optional</span></label><input id="logoUpload" type="file" accept="image/*">
+          <div class="upload-hint">PNG, JPG or WebP. The document starts with no logo.</div>
+        </section>
+        <section class="form-section">
+          <h2>Consignment</h2>
+          <div class="fields two"><label>Consignment ID<input id="consignment"
+                data-output="v_consignment"></label><label>Serial No.<input id="serial" data-output="v_serial"
+                inputmode="numeric" placeholder="1."></label><label>Departure date<input id="depdate"
+                data-output="v_depdate" placeholder="2083-04-29"></label><label>Departure time<input id="deptime"
+                data-output="v_deptime" placeholder="10:02:32"></label></div>
+        </section>
+        <section class="form-section">
+          <h2>Transport</h2>
+          <div class="fields two"><label>Vehicle number<input id="vehicle"
+                data-output="v_vehicle"></label><label>Responsible person<input id="person"
+                data-output="v_person"></label><label>Mobile no.<input id="mobile" data-output="v_mobile"
+                inputmode="tel"></label><label>Departure location<input id="departure"
+                data-output="v_departure"></label><label>Destination location<input id="destination"
+                data-output="v_destination"></label></div>
+        </section>
+        <section class="form-section">
+          <h2>Goods</h2>
+          <div class="fields two"><label>Document type<input id="doctype" data-output="v_doctype" value="बिल"
+                placeholder="बिल"></label><label>Custom point<input id="custompoint" data-output="v_custompoint"
+                placeholder="-"></label><label>Document number<input id="docno"
+                data-output="v_docno"></label><label>Document date<input id="docdate" data-output="v_docdate"
+                placeholder="2083-04-29"></label><label>Goods nature<input id="goods"
+                data-output="v_goods"></label><label>Package / unit<input id="package" data-output="v_package"
+                placeholder="पोका"></label><label>Quantity<input id="qty" data-output="v_qty"
+                inputmode="decimal"></label><label>Total amount (without VAT)<input id="amount" data-output="v_amount"
+                inputmode="decimal"></label></div>
+        </section>
+        <section class="form-section">
+          <h2>Supplier &amp; buyer</h2>
+          <div class="fields two"><label>Supplier PAN<input id="span" data-output="v_span"></label><label>Supplier
+              name<input id="supplier" data-output="v_supplier"></label><label>Buyer PAN<input id="bpan"
+                data-output="v_bpan"></label><label>Buyer name<input id="buyer"
+                data-output="v_buyer"></label><label>Remarks<input id="remarks"
+                data-output="v_remarks"></label><label>Top-right name<input id="topname"
+                data-output="v_topname"></label><label>Top-right place<input id="topplace"
+                data-output="v_topplace"></label><label>Top-right PAN<input id="toppan"
+                data-output="v_toppan"></label><label>VCTS number<input id="vcts" data-output="v_vcts"></label></div>
+        </section>
+        <div class="actions"><button type="button" id="printButton">Download PDF</button><button type="button" id="printPage" class="secondary">Print</button><button type="reset"
+          class="secondary">Clear form</button><p class="pdf-help" id="pdfStatus" aria-live="polite">Downloads one single-page PDF directly (same size as original).</p></div>
+      </form>
+    </aside>
+    <main class="preview-pane">
+      <div class="preview-label">LIVE PREVIEW</div>
+      <article class="document" id="document">
+        <div class="top-row">
+          <table class="id-table">
+            <tbody>
+              <tr>
+                <td>Consignment ID</td>
+                <td id="v_consignment"></td>
+              </tr>
+              <tr>
+                <td>Departure Date &amp; Time</td>
+                <td><span id="v_depdate"></span><br><span id="v_deptime"></span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="gov-header">
+            <div class="logo-frame"><img id="v_logo" alt="Uploaded shop logo"></div>
+            <div class="gov-line1">Government of Nepal</div>
+            <div class="gov-line2">Ministry of Finance</div>
+            <div class="gov-line3">Department of Revenue Investigation</div>
+            <div class="gov-line4">Hariharbhawan, Lalitpur</div>
+          </div>
+          <div class="supplier-block">
+            <div class="sup-name" id="v_topname"></div>
+            <div class="sup-place" id="v_topplace"></div>
+            <div class="sup-pan">PAN No.: <span id="v_toppan"></span></div>
+            <div class="sup-vcts">VCTS बनाउनेको नम्बर : <span id="v_vcts"></span></div>
+          </div>
+        </div>
+        <table class="transport-table">
+          <thead>
+            <tr>
+              <th>Vehicle<br>Number</th>
+              <th>Responsible<br>Person<br>Name</th>
+              <th>Mobile No.</th>
+              <th>Departure<br>Location</th>
+              <th>Destination<br>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="v_vehicle"></td>
+              <td id="v_person"></td>
+              <td id="v_mobile"></td>
+              <td id="v_departure"></td>
+              <td id="v_destination"></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="goods-table">
+          <colgroup>
+            <col class="sn">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col class="amount">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col class="destination-col">
+            <col class="remarks-col">
+          </colgroup>
+          <thead>
+            <tr>
+              <th rowspan="2">S.N.</th>
+              <th rowspan="2">Document<br>Type</th>
+              <th rowspan="2">Custom<br>Point</th>
+              <th rowspan="2">Document<br>Number</th>
+              <th rowspan="2">Document<br>Date</th>
+              <th rowspan="2">Goods<br>Nature</th>
+              <th rowspan="2">Package<br>/ Unit</th>
+              <th rowspan="2">Quantity</th>
+              <th rowspan="2">Total Amount<br>(without VAT)</th>
+              <th colspan="2">Supplier</th>
+              <th colspan="2">Buyer</th>
+              <th rowspan="2" class="destination-heading">Destination<br>location</th>
+              <th rowspan="2">Remarks</th>
+            </tr>
+            <tr>
+              <th>PAN No.</th>
+              <th>Name</th>
+              <th>PAN No.</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="v_serial"></td>
+              <td id="v_doctype"></td>
+              <td id="v_custompoint"></td>
+              <td id="v_docno"></td>
+              <td id="v_docdate"></td>
+              <td id="v_goods"></td>
+              <td id="v_package"></td>
+              <td id="v_qty"></td>
+              <td id="v_amount"></td>
+              <td id="v_span"></td>
+              <td id="v_supplier"></td>
+              <td id="v_bpan"></td>
+              <td id="v_buyer"></td>
+              <td id="v_destination2"></td>
+              <td id="v_remarks"></td>
+            </tr>
+          </tbody>
+        </table>
+        <img src="data:image/png;base64,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" class="qr" alt="QR code">
+
+      </article>
+    </main>
+  </div>
+  <!-- Prefer local files; automatically use the CDN if GitHub Pages has no vendor folder. -->
+  <script>
+    window.pdfToolsReady = Promise.all([
+      ['vendor/html2canvas.min.js', 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'],
+      ['vendor/jspdf.umd.min.js', 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js']
+    ].map(([localUrl, cdnUrl]) => new Promise((resolve, reject) => {
+      const load = url => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = () => {
+          script.remove();
+          if (url === localUrl) load(cdnUrl);
+          else reject(new Error(`Could not load ${cdnUrl}`));
+        };
+        document.head.appendChild(script);
+      };
+      load(localUrl);
+    })));
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>
